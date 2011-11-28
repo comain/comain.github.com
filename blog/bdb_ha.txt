@@ -1,0 +1,8 @@
+Berkerley DB replication can support automatic leader election, fail over and
+various consistency policies.
+The frontend has to differenciate which backed is currently master though, which
+can be achived by a notification when the bdb instance becomes master or a query
+after finding the old master is dead.
+Memcachedb is one such example that uses BDB and replication to build a real
+world datastore. However I think it can also be used as a common HA, high
+performance in memory db that is a building block for various stateful services.
