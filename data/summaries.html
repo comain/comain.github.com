@@ -1,0 +1,891 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE></TITLE>
+<META NAME="generator" CONTENT="txt2html v1.28">
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<H1><A NAME="section-1.">Datacenter Trends 101</A></H1>
+Chair: Margo Seltzer (Harvard)<BR>
+Summarized by Eugenia Gabrielova (<A HREF="mailto:eugenia.g@uci.edu">eugenia.g@uci.edu</A>)
+
+<H2><A NAME="section-1.1.">Internet-Scale Datacenter Economics: Where the Costs & Opportunities Lie -  James Hamilton, Amazon</A></H2>
+
+<P>
+James kicked off HPTS with an exciting talk about the "realities of data centers", as introduced by session chair Margo Seltzer. James described HPTS as his favorite conference, primarily because of the people in the room. This resulted in generally happy vibes. Moving forward, James claimed there has been more innovation in the past five years than in the previous fifteen, primarily due to advances in cloud computing and the accessibility it provides to application developers. Meanwhile, datacenters are expensive and don't really help innovation -- when you are spending millions or billions of dollars, you do things the same way because you know they work.
+
+<P>
+Scale has grown drastically for Amazon; there are always multiple datacenters under construction. Inside of the last four years, AWS has evolved into a phenomenal business which generates tons of revenue and passes on savings to customers. As an example of scale, James noted that Amazon was approximately a $2.7 billion annual revenue enterprise in 2000. Now, every day Amazon Web Services adds enough new capacity to support all of Amazon.com's infrastructure in the company's first five years. There is a competitive advantage in having better infrastructure. Suddenly, customers can say "I can afford to have a supercomputer" which had not been possible in the past.
+
+<P>
+At this point, the focus of the talk shifted to everything below the OS, because that is generally where the money goes. Charts often show people costs, but at a really large scale these costs are very minor relative to the costs of servers and power distribution. As a rule of thumb, "If you want to show people your infrastructure, you're probably spending too much." When you really look at the month to month costs of a data center, servers (not power distribution) dominate those costs. However, server costs are decreasing while networking costs are creeping up. Networking is a problem precisely because it is "trending up", so it is broken -- this is a huge oppportunity for innovation.
+
+<P>
+Another area with great potential for innovation is cooling systems. James explained that cooling systems have remained the same for about 30 years as "embarrassing". Fans moving air is expensive, and moving water is also fairly expensive. Some trivia: the hottest documented day was 136 Farenheit/58 Celcius in Libya in 1922. Chuckles ensued as an audience member recommended using American air instead of transporting air from Libya. Datacenters of the future could be designed beautifully with ecocooling, no AC required. In the meantime, modular and pre-fabricated data centers are regaining popularity because of how quickly they can be deployed. Making data centers better isn't just a technical advantage, it is an enormous business advantage as well.
+
+<P>
+Bruce Lindsay (Independent, ex-IBM) commented on the declining cost of network
+ports. James listed some prices: $15 for 1Gb onboard, $150-250 for 10 Gb
+offboard, $100 on board, will eventually drop to $35. Someone asked about
+Openflow, and James said that Google supports Quagga for routing, and OpenFlow
+comes from Stanford. Both are interesting, as they open up the infrastructure
+by allowing the control plane to run centrally, with cheap hardware for
+running the data plane.
+
+<P>
+Someone noted that standard practice in the computer industry is to "prepare for the worst." James replied that there are test sites running with high-voltage direct current, and that a number of high-profile datacenters have very robust strategies for ensuring uptime (such as fully dedicated power generators). However, due to high demand, it can be hard to know which workloads will be running in a datacenter at a given time.
+
+<P>
+Slides from this talk can be found at <A HREF="http://mvdirona.com/jrh/TalksAndPapers/JamesHamilton_HPTS2011.pdf">http://mvdirona.com/jrh/TalksAndPapers/JamesHamilton_HPTS2011.pdf</A>. James can be reached at <A HREF="mailto:James@amazon.com">James@amazon.com</A>.
+
+<H2><A NAME="section-1.2.">The Rise of Dark Silicon</A></H2>
+Nikos Hardavellas, Northwestern University
+
+<P>
+Dr. Hardavellas was unable to make it to HPTS this year, but has made the slides for his talk available at: <A HREF="http://www.hpts.ws/sessions/Hardavellas.pdf">www.hpts.ws/sessions/Hardavellas.pdf</A>
+
+<H2><A NAME="section-1.3.">The Hitchhiker's Guide to Precision Time Synchronization - Krishna Sankar, Egnyte</A></H2>
+
+<P>
+Before he become Lead Architect at Egnyte, Krishna was a Distinguished Engineer at Cisco Systems. In his free time, he enjoys working as a Technical Judge for FIRST Lego League Robotics. He began his talk by defining Time Synchronization, emphasizing that it is different from Time Distribution. There is incredible value in offering time precision in an application. Ocean observatory networks, industrial automation, cloud computing, and many other fields would benefit. Time synchronization is also slowly finding its way into routers and blade server fabrics.
+
+<P>
+Krishna continued with an overview of IEEE 1588 v2 PTP (Precision Time Protocol), which concerns the sub-microsecond synchronization of real-time clocks in components of a network distributed measure and control system. This capability is intended for relatively localized systems, like those often found in finance, automation, and measurement. The purpose of IEEE 1588 is simple installation, support for heterogeneous clock systems, and to have minimal resource requirements on networks and host components.
+
+<P>
+PTP uses a Master-Slave model to synchronize clocks through packets over Unicast and/or Multicast transport. The overall operation follows a simple protocol: master and slave devices enabled with PTP send messages through logical ports to synchronize their time. There are five basic PTP devices, four of which are PTP clocks. Each clock determines the best master clock in its domain out of all of the clocks it can see, including itself. It is actually very difficult to achieve high precision, so some hardware-assisted time stamping can be used to help accuracy (which is more complex than it sounds). A few key lessons in working with PTP are that shallow, separate networks are preferable; anything too hierarchical will prove difficult to manage and synchronize. Accuracy depends largely on hardware and software abilities and interaction. Additionally, GPS satellite visibility is needed for the GMC (Grand Master Clocks, the most accurate).
+
+<P>
+He closed the presentation by encouraging audience members to submit to ISPCS 2012, which will take place in San Francisco. Learn more at <A HREF="http://www.ispcs.org">http://www.ispcs.org</A>. A lively discussion of time synchronization followed, particularly a few questions about application development and financial systems. A central theme of the Q & A was whether these time precision techniques are accessible to the average application developer. How can an average application, subject to layers of virtualization and delays, take advantage of precision timing? The main take-away was that, with some planning, developers can certainly take advantage of advances in time synchronization. The slides for this talk can be found at <A HREF="http://www.hpts.ws/sessions/Synchronization.pdf">http://www.hpts.ws/sessions/Synchronization.pdf</A>.
+
+<HR>
+
+<H1><A NAME="section-2.">Not Your Traditional Data Management</A></H1>
+Chair: Natassa Ailamaki (EPFL)<BR>
+Summarizer: Andy Pavlo <A HREF="mailto:pavlo@cs.brown.edu">pavlo@cs.brown.edu</A>
+
+<H2><A NAME="section-2.1.">Enterprise Supercomputing - Ike Nassi (SAP)</A></H2>
+
+<P>
+Ike began his HPTS talk with a harsh denunciation and lamentation of current enterprise computing hardware that only supports a single TB of DRAM on a single motherboard. Such a limitation makes servers difficult, Ike argued, to be used for enterprise computing systems because they often have a working set size that is much greater than that. Ike strongly believes that it is time to re-examine our current predilection towards shared nothing architectures and that the database research community should co-opt many of developments made in high-performance computing research from the last 25 years, which has favored a shared-everything architecture. Large memory systems like the scale required by SAP are simply not being built, thus Ike sought to create one himself.
+
+<P>
+Ike presented a new DBMS server architecture currently under development at SAP that uses a virtual shared everything paradigm built on a single rack cluster. In SAP&acirc;��s new system, the database executes on a single-instance of Linux, while underneath the hood the ScaleMP hypervisor routes operations and data access requests over networking links (i.e., no shared buses) to multiple, shared-nothing machines. By masking the location of resources through a coherent shared memory model, Ike argues that they are able to minimize the amount of custom work that individual application developers have to do in order to scale their database platforms.
+
+<P>
+The early morning audience was languid, but several skeptics, such as Margo Seltzer, were concerned that the data links between machines would not match the speed of DRAM. Ike assured his detractors that high-performance communication links, such as InfiniBand, would be sufficient for this system. He also remarked that the system currently does not support distributed transactions, and thus there is no message passing needed between nodes. Roger Bamford (Oracle) asked why divide the system into so many cores, and Ike replied that they need the RAM. Adrian Cockcroft asked how common are failures, and Ike said that this is a lab test so far, and in thirty days there were no failures. Margo Seltzer said she loved this project, which reminded her of late 80s shared memory multiprocessor systems, like Encore. Ike said that unlike the early systems, that used busses, their system is using fast serial connections, and suggested that people not be blinded by what happened in the past. Both Margo and James Hamilton wondered about the problem of having a NUMA architecture, especially when the ratio of 'near' memory to 'far' memory reaches 10 to 1. Ike said that he lied, that all memory is used as if it were L4 cache. Roger pointed out the cost of going to the cache coordinator and Ike replied that identifying the location of memory has a constant cost.
+
+<H2><A NAME="section-2.2.">Forget Locality - Randal Burns (John Hopkins)</A></H2>
+
+<P>
+Randal Burns, a systems research professor at Johns Hopkins, raised the issue that the canonical optimizations used in DBMS systems were insufficient to achieve high-performance data processing (i.e., > 1 million I/O operations per second) on large and complex graph data sets. This is because any algorithm that must perform a scan of the entire data set or a random walk in the graph cannot take advantage of locality in the data. Thus, optimizations, such as partitioning, caching, and stream processing, are rendered impotent.
+
+<P>
+Randal then discussed ongoing work at Hopkins that seeks to understand the main bottlenecks that prevent modern systems from scaling to larger I/O operation thresholds. His work shows that low-level optimizations to remove lock contention and interference can improve throughput by 40% over file access through the operating system.
+
+<P>
+Margo Seltzer asked whether making certain assumptions about the physical layout of the graphs could be exploited. That is, could performance be improved if the system stored the data in a way that optimized for a particular processing algorithm? Randal responded that such techniques would be unlikely to work for attribute rich graphs, since there is no optimal ordering. Roger suggested that he put the answer in their database, and be done with, eliciting laughter. Mike Ubell asked of the cache was throttling IOPs, and Randal said yes, that there is lots of bookkeeping and page structures to manage. James Hamilton asked why not have the database use memory directly, and Randal said that is where they are going. They want to get away from local and global data structures. James pointed out that databases had already done this. Mohan asked about latches, and Randal replied that want only locks that matter, such as a read lock on dentry and on mapping.
+
+<P>
+Someone suggested proper indexing, declaration of graph processing, having the
+database make decisions in advance. Randal replied that that is ground that
+has been tread before. Someone else pointed out that it seemed they were
+looking for storage memory that had DRAM-like characteristic, and Randal
+agreed, saying that without a memory hierarchy his talk would be a no-op.
+
+<H2><A NAME="section-2.3.">Flexible Hardware for Flexible Data Intensive Software - Arun Jagatheesan (Samsung)</A></H2>
+
+<P>
+Arun Jagatheesan from Samsung shared his perspective on new hardware trends and configurations for big-data systems and supercomputing platforms.  He was specifically focused on the &acirc;��flexibility&acirc;�� of both the hardware systems (i.e., allowing administrators to configure the hardware) and the software platforms that they support (i.e., allowing users to execute variegated workloads). Arun began with an overview of the flash-based Gordon system that he helped to develop while at the San Diego Supercomputer Center in 2009. Arun said that the three main lessons that he learned from this project was that (1) not all the configuration options that one needs are available in hardware, (2) there is a nebulous trade-off between flexibility and performance, and (3) that manufacturers, applications, users, and administrators are unprepared for new hardware.
+
+<P>
+From this, Arun then introduced his more recent work on Mem-ASI at Samsung. Mem-ASI is a memory-based storage platform for multi-tenant systems that is designed to learn the access patterns and priorities of applications, and then react to them accordingly in order to improve throughput. Such priorities could be either service-level hints from applications, service-level requests from the computing platform&acirc;��s infrastructure, or simply from how the individual application accesses data. This additional information could be used by the system for more intelligent scheduling and resource management. Arun believes that such a model could both improve performance and possibly reduce energy consumption.
+
+<P>
+James Hamilton said he could understand the power savings, but not the factor
+of four performance gains. Arun said that the idea is that you can change
+something on the memory controller to change what is happening at the
+transport layer. James asked if this had to do with the number of lanes coming
+off the core, and Arun replied that it is not about lanes, but what you can do
+behind those lanes.
+
+<HR>
+
+<H1><A NAME="section-3.">Mapping the NoSQL Space</A></H1>
+Chair: Brian Cooper (Google)<BR>
+Summarizer: Aaron Elmore <A HREF="mailto:aelmore@cs.ucsb.edu">aelmore@cs.ucsb.edu</A>, Session hpts11-3
+
+<H2><A NAME="section-3.1.">The NoSQL Ecosystem - Adam Marcus (MIT)</A></H2>
+
+<P>
+Adam Marcus began the 'NoSQL Ecosystem' presentation with a brief history on the origins of NoSQL, beginning in the late 90s with web applications being developed using open source database systems. Applications that saw increased load began wrapping standalone DBMSs to allow for sharding to achieve scale. Additionally, relational operations were removed and joins were moved to the application layer to reduce costly database operations.  These modifications lead to the creation of databases that went beyond traditional SQL stores, and came to be referred to as Not Only SQL (NoSQL). With a plethora of recent NoSQL options, Adam lightheartedly introduced Marcus' Law where the number of persistence options doubles every 1.5 years.
+
+<P>
+The majority of NoSQL stores rely on eventual consistency, and are built using a key-based data model, sloppy schemas, single key transactions, and application based joins. However, exceptions to these properties were highlighted including alternatives to data models, query languages, transactional models, and consistency. For example, while many NoSQL databases utilize eventual consistency many alternatives exist, such as PNUTS's timeline consistency or Dynamo's configurable consistency based on quorum size. With a basic understanding of NoSQL properties, real world usage scenarios were outlined.
+
+<P>
+Recently, Netflix has undergone a transition from Oracle to Cassandra, to store customer profiles, movie watching logs, and detailed customer usage statistics. Key advantages that motivated the migration include asynchronous data center replication, online schema changes, and hooks for live backups. More information about this migration is detailed at <A HREF="http://www.slideshare.net/adrianco/migrating-netflix-from-oracle-to-global-cassandra">http://www.slideshare.net/adrianco/migrating-netflix-from-oracle-to-global-cassandra</A>. Contrasting Cassandra, Facebook chose HBase for the new FB Messages storage tier, primarily due to difficulties in programming against eventual consistency. HBase also provides a simple consistency model, flexible data models, and simplified distributed data node management. MongoDB usage for Craigslist archival and Foursquare checkins were briefly highlighted.
+
+<P>
+After detailing NoSQL databases and use cases, Adam presented thoughts on take-aways for the database community. First, and most contentiously, is developer accessibility. Adam said that the ability of a programmer to setup and start using a NoSQL db really mattered. Bruce Lindsay (ex-IBM) strongly objected to the question on 'whether first impressions made within five minutes of database setup and use matter.' Margo Seltzer (Harvard) countered that a new generation of developers, whom use frameworks like 'Ruby on Rails', do make decisions on accessibility and that these developers should matter. Adam furthered the argument by claiming accessibility will matter beyond minutes in schema evolution, scaling pains, and topology modifications.  Database development should also examine the ecosystem of reuse found in some NoSQL projects. This is exemplified in Zookeeper, LevelDB, and Riak Core becoming reusable components for systems beyond their initial development. Lastly, the NoSQL movement espouses the idea of <i>polyglot persistence</i> where a specific tool is selected for a task. Selecting various data solutions can create painful data consistency issues, as an enterprise's data becomes spread amongst disjoint systems.
+
+<P>
+In closing, Adam presented several open questions.  These focused on data consistency, data center operational trade-offs, assistance for scaling up, the ability to compare NoSQL data stores, and next generation databases. A question by C. Mohan (IBM) about the need for standardization of a query language drew mixed reactions.
+
+<H2><A NAME="section-3.2.">The Present and Future of Apache Cassandra - Jonathan Ellis (DataStax)</A></H2>
+
+<P>
+Jonathan Ellis, of DataStax and a major contributer to the Apache Cassandra project, outlined developments in the recent version 1.0 release and goals for future Cassandra releases. Inspired by Google's BigTable and Amazon's Dynamo, Cassandra began as a project at Facebook before becoming an Apache incubator project. Cassandra's popularity is partly due to the ability for multi-master (and thus multi data center) operation, linear scalability, tuneable consistency, and performance for large datasets. Cassandra's user base today includes large companies such as Netflix, Rackspace, Twitter, and Gamefly.
+
+<P>
+For release 1.0 of Cassandra, leveled compaction was introduced to improve the reconciliation of multiversion data files. Advantages over the previous size-tiered compaction include improved performance due to lower space overhead and fewer average files required for read operations. Additionally, individual nodes can construct local secondary indexes on columns, however denormalization and materialized views are necessary to avoid join operations.  Improvements mentioned but not discussed were compression, expiring columns, and bounded worst-case reads.
+
+<P>
+An interesting application that developed for Cassandra was the ability for eventually consistent counters. Every node in the system maintains a list of counter values associated with each node. Any local modification for the counter performed only modifies the replica's value of the counter. To ascertain the value of the counter, all replica values are summed. This allows for concurrent modifications to the counter without needing synchronization between nodes.
+
+<P>
+Heavy optimizations were undertaken to improve read and write performance for Cassandra, which included discussion on JVM tuning and garbage collection. Future advancements in Cassandra will involve easing administration and use, improving the query language, support for range queries, and introducing entity groups. Pat Helland (ex-Microsoft) asked about how to improve the performance of random reads for large data sets. Jonathan stated a reliance on SSD would be needed to make significant gains.  Someone wondered why Facebook had moved from Cassandra to HBase, and Jonathan answered that it was mostly a personnel issue within Facebook. Mehul Shah (Nou Data) asked about the advantages of developing in Java. Jonathan responded with core consistency memory management, immutable collections, and a rich ecosystem.  The last question asked was about the largest install of Cassandra. Jonathan could not say who had this, but stated that it was around 400 nodes and 300 TB of data. At this point, the chair cut off further questioning.
+
+<H2><A NAME="section-3.3.">Oracle's NoSQL Database - Charles Lamb (Oracle)</A></H2>
+
+<P>
+Charles Lamb began the presentation on Oracle's latest datastore with what NoSQL means to Oracle. A NoSQL database envelopes large data, distributed components, separating OLTP from BI (Business Intelligence), and simplified data models, such as key-value, document stores, and column families. Lamb elaborated that Berkeley DB alone does not meet all of these requirements, and that the focus of the Oracle NoSQL DB is a key-value OLTP engine. Requirements for the database include support for TB to PB scale datasets, up to one million operations per second, no single point of failure, predictably fast queries, flexible ACID transactions, support for un-or-semi-structured data, and the ability for single point of support for the entire stack from hardware up to the application.
+
+<P>
+The system has multiple storage nodes, potentially residing in multiple data centers, and is accessed by a jar deployed within the application. This jar, or driver, maintains information about the state of each storage node.  Data is accessed using major and minor keys and all records with the same major key are clustered on the same replication group of storage nodes.  Operations are simple CRUD (create, read, update and delete), Read-Modify-Write (or Compare-and-Set style), and iteration.  CRUD operations may operate on one or more records with the same major key.  ACID transactions are provided but may not span multiple API calls.  Iteration is unordered across major keys and ordered within major keys.  Management and monitoring of the system is available through a command line interface and web-based console. Oracle's NoSQL database is built upon the battle-tested, high throughput, large capacity, and easy to administer Berkeley DB Java Edition/High Availability.  As Berkeley DB JE/HA was built for a single replication group, features such as data distribution, sharding, load balancing, multi-node backups, and predictable latency (which was highlighted as a difficult goal) were required to achieve better scaling.
+
+<P>
+Hashing a major key, modulo the number of partitions, identifies the group of nodes responsible for storing replicas of a data record; this group provides high availability and read scalability. The Rep[lication] Node State Table (RNST) identifies the best node to interface within a replication group. The RNST is stored at the driver, and is updated by responses sent to the client. From the RNST the driver can determine a group's master, staleness of replicas, last update time, number of outstanding requests, and average trailing time for a given request.  Replication is single-master, multi-replica, with dynamic group membership provided by election via the Paxos protocol. Durability can be configured at the driver or request level and there are options for disk sync on both the master and replicas and replica acknowledgment policies. Consistency can be specified on a per-operation basis as well, with options to read from (a) the master, (b) any replica that lags no more than a specified time-delta from the master, (c) any replica that is at least as up to date as a specific version, or (d) any replica (i.e. no consistency guarantees). The presentation concluded with evaluation on the database's performance and scale-out capabilities.
+
+<P>
+During the presentation, Mohan asked about multi-node backup. Charlie
+responded that they can do that, but it will not be consistent. Similar to
+Cassandra, they can take a snapshot for a consistent backup. Roger asked how
+they are supporting read-modify-write, and Charlie said that the applications
+does a get, does operations, then a <i>put-if-version</i>, and conditionally
+updates. Mohan wondered if reads are guaranteed to see the final versions, and
+Charlie answered that he would cover that later, but there are no guarantees.
+
+<P>
+There was vigorous discussion after Charlie completed. Mohan asked if the data
+and operations log were stored on the same disk. Margo Seltzer, who is also
+involved with Oracle NoSQL, said that they use a log-structured data store,
+and that data and log are stored the same way. James Hamilton wondered if they
+could migrate off a node if it gets hot, and Charlie responded "not in this
+version". They do use hashing for even data distribution. Shel Finkelstein
+(SAP) asked about time-based consistency. Charlie explained that data is
+tagged with a Java-based timestamp. Mehul Shah wondered if they can continue
+operations after a partition, and Charlie said they could do reads but not
+writes without access to the master for that major key. Mehul then wondered if
+they can move partitions around and Charlie replied not in this release.
+Someone asked if the drivers knew about all partitions, and Charlies answered
+that they get initialized on the first request, and can connect to any
+replication nodes. Roger asked Charlie to describe their access control
+model, and Charlie said that the assumption is the system is in a DC,
+producing an "OMG" response.
+
+<HR>
+
+<H1><A NAME="section-4.">Big Data Experiences & Scars</A></H1>
+Chair: Ashish Thusoo (Facebook)<BR>
+Summarizer: Hatem Mahmoud <A HREF="mailto:hatem@cs.ucsb.edu">hatem@cs.ucsb.edu</A>
+
+<H2><A NAME="section-4.1.">NetFlix Goes Global - Adrian Cockcroft (Netflix)</A></H2>
+
+<P>
+Adrian Cockcroft described the process of migrating Netflix to a public cloud in order to provide highly available and globally distributed data with high performance. The migration focuses on the control plane (e.g., users' profiles, logs) not the actual movie streaming which is done using CDN. Amazon AWS was chosen as the public cloud to host Netflix's services because it is big enough to allocate thousands of instances per hour as needed. Adrian mentioned a remarkable idea in his presentation, the notion of design anti-patterns; that is, design is better defined by the undesirable properties rather than the desirable ones.
+
+<P>
+The Netflix migration involved a bidirectional replication phase in which data was replicated between Oracle database and Simple DB, while backups remained in the data center via Oracle. Later on, replication of new account information to the data center was eliminated. Each data item is replicated to three different zones (i.e., different buildings with different power supplies within the same data center). This keeps all the copies close for fast synchronization. There is a tradeoff between recoverability and latency: to achieve the lowest latency a write operation must acknowledge once it is done on at least one replica, while to achieve the highest recoverability a write operation has to wait for all three replicas to be updated before acknowledging the user. The middle path is to use a quorom of two replicas. Overall, Netflix's data are distributed across four Amazon regions, plus a backup region. Remote replication can be also achieved through log shipping.
+
+<P>
+Backup is done by: (1) taking a snapshot (full backup) periodically by compressing SSTable and storing it to S3; (2) by doing incremental compressed copying to S3 triggered by SSTable writes; or (3) by scraping the commit log and writing it to EBS every 30s. Also, there are multiple restore modes, multiple ways to do analytics, and multiple methods for archiving. Backups are PGP encrypted and compressed, with the lawyers keeping the keys for encryption. If S3 gets broken, they also make an additional copy to another cloud vendor.
+
+<P>
+Adrian pointed out that they find cloud-based testing to be frictionless. As
+an example, he asked a NetFlix engineer to spin up enough Amazon instances to
+perform one million client writes per second. It took a couple of experiments
+to come up with the correct number of nodes, 288, to do this, and a total of
+two hours and about $500 of Amazon charges.
+
+<P>
+Margo Seltzer asked about the size of their biggest database, and Adrian
+replied that it was currently 266 GB. Adam Marcus (MIT) asked if engineers had
+their own machines, to which Adrian replied that they used Jenkins for build
+testing, and had a special Eclipse plugin for working with EC2.
+
+<H2><A NAME="section-4.2.">Towards Improved MySQL Scalability and Reliability - Ryan Huddleston (Rightnow)</A></H2>
+
+<P>
+[Summary written by Rik Farrow]
+
+<P>
+Ryan described RightNow as a company that provides MySQL as a service. Located
+in Bozeman, Montana, the one thousand person company provides database
+services, on the company's servers, for over two thousand customers worldwide.
+The US military is one of their larger customers.
+
+<P>
+RightNow uses the Percona Server MySQL port, and has paid companies, like
+Percona, to add features to MySQL. In 2001, the paid to have Innodb file-per-table feature added. They found they needed to switch from ext3, the default
+Linux filesystem, to XFS because file deletion time was scaling with file
+size.  Someone asked if this is still an issue with ext4, and Ryan said it
+was. James Hamilton asked if <t>create table</t> was an issue, and Ryan said
+it never had been an issue.
+
+<P>
+Ryan discussed their technique for migrating customers between shared
+servers when a customer's load becomes too great. James Hamilton wondered how
+they prevent a single customer from dominating a server, and Ryan said they
+had a system that keeps track of load, and can migrate a customer to another
+node. It keeps track of queries and can queue queries that will take a long
+time, and moves the queries from realtime to batch.
+
+<P>
+Ryan said that their goal is to remain an open source company, and that they
+plan to push all patches up to MariaDB (a branch of MySQL).
+
+<P>
+Bruce Lindsay asked if when they add a column, do they need to delete a table,
+and Ryan said they do. They add tables/columns on a slave server, move data in
+batches, cutover columns and tables, then drop tables and columns. Then they
+snap the customer to the slave and alter the master while doing updates. The
+entire process appears to occur with no delay for queries. Someone exclaimed
+that "this was all fixed 25 years ago!". Ryan calmly replied that if they were
+doing this on Oracle, it would cost them $25 million a year. Instead it costs
+them $100,000 for support of MySQL.
+
+<H2><A NAME="section-4.3.">Storage Infrastructure Behind Facebook Messages - Kannan Muthukkaruppan (Facebook)</A></H2>
+
+<P>
+Kannan Muthukkaruppan explained the reasons why Facebook has moved from Cassandra to HBase as a storage system for Facebook messages, the architecutre used, and the lessons learned from that experience.
+
+<P>
+HBase is used to store small messages, message metadata (thread/message indices), and the search index, while large messages and message attachements are stored in Haystack. The reason why HBase was chosen is due to the need for high write throughput, good random read performance, horizontal scalability, automatic failover, and strong consistency. Besides, by running HBase on top of HDFS the system takes advantage of the fault tolerance and scalability of HDFS, as well as the ability to use MapReduce to do analytics.
+
+<P>
+Each of the data centers that host Facebook's data is considered a cell that is managed by a single HBase instance. A cell contains multiple clusters, and a cluster spans multiple racks. Each user is assigned initially to a random data center, though may be migrated later to another data center via a directory service. Typically, a data center consists of several buildings. Thus each data item stored in HBase is replicated three times, in three different buildings.
+
+<P>
+The migration to HBase took more than a year. Shadow testing was used before and after rollout. To account for potential bugs, Scribe was used to write off-line backups to HDFS, both locally and at remote data centers. The developers had to introduce several modifications to HDFS to improve reliability, including: sync support for durability, multi-column-family atomicity, several bug fixes in log recovery, and a new block replacement policy to reduce the probability of data loss. Also, to improve availability the developers introduced rolling upgrades to account for software upgrades, online <i>alter table</i> to account for schema evolution, and interruptible HFile compaction to account for cluster restarts and load balancing. Besides, the developers also added several modification to improve performance, and to solicit fine-grained metrics.
+
+<P>
+Someone asked if they have an additional sharding layer on top of HBase, and
+Kanna said yes, but that HBase only works within a single DC. Margo asked if
+users are mapped to cells randomly, and Kanna agreed. He then pointed out that
+they can migrate users later. Overall, they average 75+ billion read-write OPS
+per day, with a peak of 1.5 million operations/second. Their load is 55% read
+and 45% write, over 6 PB of data (2 PB with three replicates) all compressed
+using LZH. Margo asked if they lose all the users within a DC if it goes down,
+and Kanna replied that they do offline backups to other DCs. Cris
+Pedregal-Martin asked if they had non-peak hours, and Kanna answered that
+Monday between 12 and 2PM is their peak, so in a sense, yes. Adam asked if
+they planned on upstreaming their patches to HBase, and Kanna said that they
+had, as most of what he talked about is Open Source.
+
+<P>
+Someone else asked about network speed. Kanna said they use 1G at hosts and
+10G at the top of racks. Mike Caruso asked what type of changes did they make
+to the schema. Kanna said that making threads longer meant writing metadata
+back to HBase, so we fixed that as an example. Then he said there is lots more
+work to be done, such as fixing the problem of a single HDFS Name Node, and
+having fast, hot, backups. Mohan asked if all users are mapped to US DCs, and
+Kanna agreed. Cris asked if they ever lose messages, and Kanna said that they
+don't know, but they do sample, and sampling looks good.
+
+<HR>
+
+<H1><A NAME="section-5.">Big Analytics</A></H1>
+Chair: Jeff Hammerbacher (Cloudera)<BR>
+Summarizer: Michael Armbrust <A HREF="mailto:marmbrus@cs.berkeley.edu">marmbrus@cs.berkeley.edu</A>
+
+<H2><A NAME="section-5.1.">Big Data at eBay - Tom Fastner (eBay)</A></H2>
+
+<P>
+There are a number of important use cases for analytics over big data at
+eBay spanning from daily decisions like A/B testing for experiences or
+treatments on ebay.com all the way to supporting long term and multi-step
+programs like the buyer protection plan.  Tom Fastner described the
+architecture of their system and some of the challenges they have
+experienced operating at such a large scale (50+ TB/day new data and 100+
+PB/day processed by 7,500+ users and analysts).
+
+<P>
+Analytics at eBay is supported by three separate platforms, each with it's
+own strength but sharing some common capabilities.
+
+<P>
+At the high-end, they run EDW (Enterprise Data Warehouse) systems based on Teradata
+for all transactional data sharing it with a wide userbase and supporting
+>500 concurrent requests per minute.<BR>
+For the application logs and other structured or semi-structured data they use a
+low-end enterprise class Teradata system. The world's largest Teradata
+installation (256 nodes, 36 PB of spinning disks able to hold 84 PB of raw
+data with compression) is supporting use cases on very large but still
+structured, data.  This platform is called Singularity. The dominating data
+use today is User Behavior Information. It also serves as a DR for the EDW data
+as most of that data is required to be joined to the user behavior data for
+analytics.
+
+<P>
+The ability to easily work with semi-structured data is
+important for several reasons.  First, the use of semi-structured data
+greatly simplifies the process of modeling the data and results in a system
+that is less vulnerable to changes.  Additionally, the resulting
+de-normalization of the data can result in improved performance as the data
+is already joined.  Singularity enables processing over this
+semi-structured data by providing developers with SQL functions that
+extract individual items and sequences from the key/values pairs stored in
+a given row.
+
+<P>
+The final platform of their data analysis system is a Hadoop cluster
+running on 500 commodity nodes.  This is used primarily for structuring
+unstructured data and finding patterns that are difficult to express in SQL.
+
+<P>
+There is no silver bullet to cover all forms of analytics on a single
+platform. So, integration across those 3 platforms is key. eBay deployed a
+self-service data shipping tool  and is working on a transparent bridge
+between Teradata and Hadoop.
+
+<P>
+Mike Caruso asked if they had ever benchmarked or compared performance.
+Tom said that it was not worth the effort. Hadoop is cheaper, but not
+as efficient as Teradata or EDW. Stephen Revilak (Rusty, U Mass) asked how big
+their DBA team was. Tom said they had four DBAs, but also had an offshore
+support contract.
+
+<H2><A NAME="section-5.2.">Cosmos: Big Data and Big Challenges - Ed Harris (Microsoft)</A></H2>
+
+<P>
+Ed Harris presented the Cosmos system, a multi-petabyte storage and query
+execution system.  Used in Microsoft's OSD (Online Service Division),
+Cosmos is designed for large-scale back-end computation.  Example use cases
+include: parsing data from web crawls, processing search logs, and
+analyzing clickstream data.  The system is run as a service within
+Microsoft and users simply provide the data and queries to be run without
+having to worry about the underlying infrastructure.  At a high
+level, Cosmos is broken into three major layers: Storage, Execution, and
+the SCOPE language.
+
+<P>
+Starting from the bottom, the storage layer is organized around the concept
+of <i>extents</i>.  An extent is an immutable block of data, up to 2GB in size.
+ The storage layer automatically handles compression and ensures that each
+extent is replicated to 3 different ENs (Extent Nodes) for fault tolerance.
+ Multiple extents are concatenated to form a <i>stream</i> and the storage layer
+is also responsible for maintaining the namespaces of available streams.
+
+<P>
+On top of the storage layer, the execution engine is responsible for taking
+a parallel execution plan and finding computers to perform the work.  For
+better performance, the system ensures computation is collocated with data
+when possible.  The execution model is based on Dryad, which is similar to
+MapReduce but more flexible as it allows the expression of arbitrary DAGs.
+ Finally, the execution engine also shields the developer from some of
+the flakiness inherent in running jobs on large clusters of commodity
+machines by managing failures and restarting computation as needed.
+
+<P>
+Finally, at the top of the stack is the SCOPE language.
+ Influenced heavily by SQL and relational algebra, SCOPE provides
+developers with a declarative language for manipulating data using a
+SQL-like language extended with C# expressions.  The SCOPE optimizer, which
+is based on the optimizer found in Microsoft SQL Server, decides the best
+way to parallelize the computation while minimizing data movement.
+
+<P>
+As Cosmos is a hosted service, its important to allocate resources fairly
+amongst the system's many users.  This is accomplished by defining the
+notion of of a virtual cluster (VC).  Each VC has a guaranteed capacity,
+but can also take advantage of idle capacity in other VCs.  Within any
+given VC the cost model is captured in a queue of work (with priority).
+
+<P>
+Harumi Kuno from HP Labs asked Ed to elaborate on how they divide cluster
+resources.  Ed responded that each VC is provided tokens which represent
+some amount of processing cores, I/O bandwidth, and memory. Mike Caruso asked
+if they do any migration of data, and Ed said that they have because they
+bring up or shutdown clusters.
+
+<H2><A NAME="section-5.3.">Scal(a)ing up Big Graph Analytics - Tyson Condie (Yahoo! Research)</A></H2>
+
+<P>
+Tyson Condie presented ScalOps, an embedded domain specific language in
+the Scala programming<BR>
+language designed for running machine learning algorithms over big data.
+ ScalOps expands on current systems such as MapReduce and Spark by
+providing a higher-level language based on relational algebra
+that natively supports successive iteration over the same data.
+
+<P>
+A motivating example for their system is performing spam classification for
+Yahoo! Mail.  Their first prototype used Pig to extract labels and generate
+a training set which was then used to train a model using sequential code.
+ This code was executed repeatedly until a satisfactory model was found.
+ Unfortunately, this process was suboptimal for several reasons.  First,
+since their tools did not natively support iteration they needed to
+construct a  fractured workflow using Oozie.  Second, the sub-sampling
+required to fit the data on a single machine hurt the accuracy of
+the classifier.  Finally, copying data to a single machine can be very slow.
+
+<P>
+An obvious improvement is to parallelize the training algorithm.  This
+solution, however, does not fit nicely into the MapReduce model.  Thus,
+real-world implementations often involve using fake mappers that
+cross-communicate, eliminating many of the fault tolerance benefits of the
+MapReduce model.  While systems like Spark provide an improvement over
+such practices by allowing users to explicitly cache data
+for subsequent iterations, explicit caching is a point-solution that limits
+opportunities for optimization.
+
+<P>
+In contrast, ScalOps is a Scala DSL that is capable of capturing the entire
+analytic pipeline.  It supports Pig Latin and has a looping construct that
+can efficiently capture iteration.  It runs on top of the HyracksML +
+Algebricks runtime, which provides the system with a relational optimizer
+and a data-parallel runtime.
+
+<P>
+Ed Harris from Microsoft asked how they knew when iteration for a given
+algoritm was complete.  Tyson responded that for global models the UDF
+would specify completion and for local models computation terminates when
+all messages stop. Mike Stonebraker asked why they didn't use R, given its
+popularity with analysts. Tyson explained that nothing in their system
+precludes the use of R UDFs.  Mike Caruso asked how opaque UDFs are and if
+this is a problem for optimization.  Tyson answered that there is no
+visability into the UDFs, but the looping construct can look at the
+underlying AST and perform algebraic optimizations.
+
+<HR>
+
+<H1><A NAME="section-6.">Consistency Revisited</A></H1>
+Chairs: Mark Little (Red Hat) & Raghu Ramakrishnan (Yahoo!)
+Summarizer: Aaron Elmore <A HREF="mailto:aelmore@cs.ucsb.edu">aelmore@cs.ucsb.edu</A>
+
+<H2><A NAME="section-6.1.">Eventually Consistent is Eventually Not Enough - Mehul Shah (Nou Data)</A></H2>
+
+<P>
+In an analysis of eventual consistency, Mehul Shah shared experiences and insights with building a large distributed key-value store at HP. Some applications need scalable solutions to support high availability and globally distributed data. Traditional DBMSs have limited scalability due to their consistency requirements, resulting in the creation of NoSQL databases that dropped ACID and traditional models to achieve scale. In the context of the CAP theorem, this equates to traditional databases as providing CP and NoSQL databases as providing AP. Eventual consistency then becomes the standard tool to enable availability in a distributed environment. Shah stated that two myths regarding NoSQL exist today. First, that eventual consistency is enough and second, that adding stronger consistency later is easy.
+
+<P>
+Shah described a database built at HP as a geo-distributed, highly-available, large object store that supports a large user base and versioned keys by use of timestamps. Conceptually, the database is similar to S3, with unique accounts owning multiple buckets, and each bucket having a unique name and containing many objects. Buckets have unique ownership and can be shared with other users via bucket permissions. With this context, two partitioned users attempting to concurrently create the same bucket is a conflict simplified by strong consistency. Whereas, eventual consistency for metadata operations, such as bucket creation and deletion, could result in a user viewing unowned objects.
+
+<P>
+To facilitate strongly consistent operations and prevent undesirable situations, the Atomic Conditional Update (ACU) was introduced as a primitive for achieving consistency. Multi-key and atomic get/test/put are operations that ACU needed to satisfy with a single RPC call. Pat Helland asked if this was effectively concurrency control, or a strongly consistent tool that can be used for optimistic concurrency control. Shah answered that larger transactions could be built out of ACU primitives if needed.
+
+<P>
+Not all operations need the strong consistency of ACU, such as put or get for objects with high availability, so applications can mix strong and weak consistency operations for the same data store. This introduces subtle interactions, such as weakly consistent operations that are not serialized against strongly consistent operations. <i>However, developers are not used to thinking about these interactions, and typically results in workarounds in higher layers</i>. Armando Fox (UC Berkeley) asked if the operations are not serializable due to core operations checking different targets. Shah answered that they are serializable because a read-write dependency exists between the operations. If they were strongly consistent operations, they would be serialized by the system.
+
+<P>
+With the assumption that partitions will occur, CAP presents a choice between consistency and availability. However, the terms in CAP are not crystallized. Consistency could include notions of recency, isolation, or integrity. Availability could encompass uptime, latency, or performance. Partition toleration could be supporting a single node or minority partition. This lead Shah to claim that CAP is not a theorem to be applied, but more of a principle. With the many semantics that exists for consistency and availability, <i>an ideal single system should support various consistency options that span a spectrum from consistency (transactions) to availability (eventual consistency)</i>. This was likened to isolation levels, which are easy to understand, configurable and compatible.
+
+<P>
+Several options exist when adding consistency to a weakly consistent system. Layering services, coordinated components, or an integrated approach are techniques to provide a consistency primitive, like ACU, to a weakly consistent database. The integrated approach still requires insight into mixed consistency operations, but these complexities are abstracted from application developers. Shah stated that if you are starting over, your system design would benefit from relaxing a strongly consistent core, over strengthening a weakly consistent core. Eventual consistency is required and at the same time not enough, and now is the time to rigorously examine our understanding of consistency.
+
+<H2><A NAME="section-6.2.">Flexible OLTP Data Models in the Future - Jags Ramnarayan (VMWare)</A></H2>
+
+<P>
+Jags Ramnarayan presented his personal view on the future of OLTP databases. Jags motivated future OLTP systems with the following observations about modern data needs. High demands exists for databases that can support low latency, predictable performance, graceful handling of large spikes in load, big data support, and in-memory operations on commodity hardware. Data input is increasingly trending towards streaming and bi-temporal behavior. Additionally, rapid application development requires a more flexible schema to support frequent changes. Last and most significantly, while a single database instance is ACID, rarely does ACID hold for enterprise wide operations.  This results in data silos and duplication across databases. Therefore, enterprises must live with cleaning and de-duplication of data.  From these observations Jags states that <i>people actually do not want ACID, but rather deterministic outcomes</i>.
+
+<P>
+Having outlined trends, Jags provided a brief overview of VMWare's GemFire and the similar SQL interfaced SQLFire. GemFire is a highly-concurrent, low latency, in-memory, distributed, and key-value data store. Keys and indexes are stored in memory, with persistence of the data handled by compressed rolling logs.  Tables can be partitioned or replicated, with replicas acting as active-active for reads, but use serialized writes by a single master for any given key. Distributed transactions are supported, but effort is undertaken to prune queries to a single partition for colocated transactions. Jags mentioned that GemFire supports asynchronous WAN replication and a framework for read-through, write-through, and write-behind operations; however, no details were given.
+
+<P>
+While hash partitioning typically provides uniform load balancing, databases should exploit OLTP characteristics to go beyond key based partitioning. Jags made a key observation: that the number of entities typically grow, and not the size of each entity. Additionally, access is typical restricted to only a few entities. If related entities can be grouped, they can be colocated and thus minimize the number of distributed transactions. To build entity groups, compounded primary keys should be constructed using foreign keys to capture relationships between entities. Grouping will largely prune operations to single  entity groups that are colocated, allowing for scalable cluster sizes, transactional write sets on entity groups, serializabilty for entity groups, and joins within a group.  This solution does not eliminate distributed transactions across entity groups as access patterns complexity invariably go beyond grouping semantics. Despite the promise of hashed keys and grouping, hotspots and and complex queries create difficult scenarios for 'partition aware' designs. Some of the problem can be alleviated through smart replication of reference data which is frequently joined with partitioned data.
+
+<P>
+Looking forward and beyond the traditional SQL models, Jags described a <i>polyglot</i> OTLP database. This multi-purpose data store should support: (1)continuously changing, complex, object graphs, (2) structured transactional data and (3)  support for flexible data models, such as JSON.
+
+<H2><A NAME="section-6.3.">Inconsistency and Outconsistency - Shel Finkelstein (SAP) & Pat Helland</A></H2>
+
+<P>
+Shel Finkelstein's presentation focused on approaches to handle views based on inconsistent data sources. He began with a quote by F. Scott Fitzgerald, paraphrased as <i>the sign of intelligence is the ability to function while holding opposed ideas in the mind</i>. Similarly, the goal for database systems should be to maintain functionality despite having potentially inconsistent data sources. To understand if data is inconsistent, a complete view on the data's context may be required. A set of weather measurements without location or time is an example of what seems like inconsistent data, but is simply lacking event details and provenance.  After challenging notions of consistency, Shel provided Jim Gray's definition of consistency as, a correct set of operations to transform the state of data, without violating the integrity constraints associated with the state.
+
+<P>
+Data inconsistencies can occur from a variety of scenarios. First, inconsistencies can derive from integrity constraint violations, such as impossible address information, corrupted entity foreign relations, violating business rules, or domain constraints. Second, logical impossibilities can occur. This can include unanticipated data unknowingly being transformed, incomplete data, or from real world data contradictions, such as a location changing over time which clearly could not relocate. Third, replication issues include asynchronous data feed corruption or relaxed consistency models for replication protocols.  Fourth, many databases run with read committed as the default isolation level, which does not guarantee serializability and can result in data inconsistencies.  Normann and Ostby's <i>A Theoretical Study of Snapshot Isolation</i> in EDBT 2010 was given as a reference for inconsistencies that can arise even when using snapshot isolation.
+
+<P>
+In an ideal world, inconsistencies in data would not exist, but databases reside in the real world and need to handle inconsistent data sources. Every application operates with assumptions about the consistency of data, and disjoint applications can make different assumptions on the same inconsistent data source. Shel introduced the concept of outconsistency, which involves providing an <i>outwardly consistent view of the data</i> and guidelines for how applications should operate on inconsistent sources. This provided a <i>regimen</i> that enables different applications to operate on the same data source with some understanding of methods for dealing with inconsistencies.
+
+<P>
+Approaches for addressing outconsistency were defined as the following techniques, which are likely to be used in combination. <i>Preventing Inconsistent Data</i> provides an identical view to the data, relying on approaches such as strong integrity constraints, checking business rules, and utilizing <i>Transactional Intent</i> (CIDR 2011) to prevent inconsistencies at the source.  <i>Tolerating Inconsistent Data</i> utilizes expected inconsistencies to transform data for the outward view. <i>Ignoring Inconsistent Data</i> filters the outward view to only include data consistent for the purposes of the application. <i>Fixing Inconsistent Data</i> requires the application to take an active role in correcting the inconsistencies in the source data. For each approach a set of challenges were discussed. A final claim was made that all data, and subsequently transaction processing consists only of events, reports, and decisions. Transactions and consistency should be discussed in this context. The work presented is just the beginning of examining the fluid relationship between applications and data.
+
+<P>
+Graefe Goetz wondered if 'kicking the can down the road' really means
+eventually consistent? Shel countered that 'kicking the can down the road'
+means something else deals with it. It can be data cleansing applications,
+services with alerts, interpolation and extrapolation, renewal processes, such
+as SAP's APO. Roger Bamford (Oracle) asked if Shel would consider compensating
+transactions, and Shel said that this fits into this category.
+
+<P>
+Shah said that he had experience with fixing these problems, and that it comes
+down to cost, earlier versus later. Can you comment a little on costs? Shel
+replied that the trade off has to do with coping with inconsistencies or
+fixing them. Mike Caruso mused that you could have outconsistency in one
+system that would be an inconsistency in a second. Shel concluded by asking
+the audience to consider if his factoring is correct, and if it is, should we
+write applications based on it.
+
+<HR>
+
+<H1><A NAME="section-7.">It May Be Fast, But Is It Right?</A></H1>
+Chair: Chris Newcombe (Amazon)<BR>
+Summarizer: Yingyi Bu <A HREF="mailto:yingyib@ics.uci.edu">yingyib@ics.uci.edu</A>
+
+<H2><A NAME="section-7.1.">Debugging Designs - Chris Newcombe (Amazon)</A></H2>
+
+<P>
+Chris Newcombe presented a model-checking-like approach for finding bugs at the design stage. He started the talk using the Chord Paper as an example. <i>Chord: A Scalable Peer-to-peer Lookup Service for Internet Applications; Stoica et al 2001</i> is one of the most cited Computer Science papers (8966 cites on Nov 11, 2011). However, Pamela Zave from AT&T Research recently found 8 major defects in the Chord ring membership protocol, using exhaustively testable pseudo-code (written using Alloy). The testable pseudo-code is remarkably simple.  The example reveals that even top work done by the best people and reviewed by very smart peers can still have bugs!  Especially, those systems bundling concurrency control, recoverability, failure handling, and business logic together are very hard to debug. However, test tools can help.
+
+<P>
+Chris proposed that pseudo-code should be written in a support tool rather than only in design documents,  and then people should use the tool to do exhaustive testing on the pseudo-code,  such that bugs could be found at the design phase. He proposed that TLA+ and PlusCal should be the pseudo-code language, and then he used Michael J. Cahill's SIGMOD08 paper <i>Serializable Isolation for Snapshot Databases</i> as a running example to show how to get the testable pseudo-code from the pseudo-code in the paper. Finally, Chris showed that the TLA tool can automatically check Cahill's algorithm. Chris also suggested that the audience read Lamport's book <i>Specifying System</i>,  as well as <i>TLA+ Hyperbook</i> (<A HREF="http://research.microsoft.com/en-us/um/people/lamport/tla/hyperbook.html">http://research.microsoft.com/en-us/um/people/lamport/tla/hyperbook.html</A>).
+
+<P>
+Margo Seltzer said that the testable pseudo-code actually is a specification, and TLA+ could be thought of as a specification language. Chris replied that the word 'formal' is like death for many people, and he steers away from using that word. He claimed to be an escaped video game programmer who has never proven anything in his life. Mike Caruso asked if Lamport's TLA+ can generate code to the state machine level, and Chris replied that Lamport designed his tool to be very expressive declaratively, but it cannot be used to compute. Adrian Cockcroft wondered why he couldn't find Lamport's book at Amazon, and Ernie Cohen replied that the PDF is available for free.
+
+<H2><A NAME="section-7.2.">Verifying Real-World Transaction-Processing Code with Microsoft VCC - Ernie Cohen (Microsoft)</A></H2>
+
+<P>
+Ernie Cohen argued that testing sucks, and instead, deductive verification should be widely used in production software development. He proposed that programmers should be able to write contracts such as pre-conditions, post-conditions, and invariants in their code. Therefore, verification could be done in a program-centric way. Ernie clarified that the cost of deductive verification should be comparable to complete functional testing.
+
+<P>
+After giving the high-level vision, Ernie briefly introduced VCC (Verified Concurrent C) which was developed by his group. VCC allows programmers to annotate their original C code with contracts. Then, he did a live demo to show how VCC can find bugs in a C binary search program. Ernie added several pre-conditions and invariants as annotations to the code, and then bugs like race conditions, buffer overflow, and value overflow were quickly caught. After the live demo, Ernie further illustrated several useful constructs in VCC, such as data invariant, ownership and ghost data and code. Data invariants are invariants on objects and can be defined as part of type declarations. Ownership is mostly used for specifying the contracts of concurrent reads/writes. Ghost data usually represent abstract states, while ghost code is actually executable contract and only run at verification time. Ernie also showed how to add annotations such as invariants and ghosts to make a piece of lock-free, optimistic, multi-versioned transaction processing code verifiable. Ernie finally mentioned that they should add prophecy support in VCC in order to verify properties like "whether a timestamp obtained from the DB will be its final timestamp".
+
+<P>
+Armando Fox (UCB) asked if VCC can handle runtime polymorphism, and Ernie
+pointed out the C includes runtime polymorphism, such as function pointers.
+Armando asked if VCC works for languages other than C, and Ernie said they may
+port it to C++.
+
+<H2><A NAME="section-7.3.">Data without Provenance is like a Day without Sunshine - Margo Seltzer (Harvard)</A></H2>
+
+<P>
+Margo Seltzer argued that provenance is playing a more and more important role in computer systems. Provenance is the metadata for data, such as "how, when, why" about the data. She used WikiPedia revision history to illustrate provenance, and by looking at the editors historically, one can gain a certain level of confidence on the WikiPedia content. Provenance can come from instruments, application software, system software or software tools. Provenance reminds people what has happened and gives people an interpretation on why something happened. Margo pointed out that nowadays, provenance is usually managed manually, implied, embedded or in a workflow system.
+
+<P>
+Margo emphasized that provenance is everywhere! Everyday, people may ask questions such as "why does Facebook recommends this ad to me?", "where does this file come from?", "what did the customer do before she hit this bug?", and so on. They are all provenance queries. Margo advocates that provenance should be built into every system in a layered way. The key concept of layered provenance-aware system is that each layer collects provenance and each layer associates its provenance objects with both upper and lower layer provenance objects. The example systems Margo's group has built include a provenance-aware storage system, simple provenance in PostgreSQL, and a provenance-aware Python workflow engine.
+
+<P>
+Rusty wondered why the person who wrote an algorithm couldn't supply
+provenance, and Margo said she wants the algorithm to include the generation
+of the provenance, so that the information generated can be used to improve
+the algorithm. Pat Helland said that machine learning is like Mulligan stew,
+it's 'ginormous', and Margo agreed. But Margo said she still wants everything,
+which is why disk vendors love her. Jim Waldo (Harvard) said that for non-disk
+vendors, transporting all the provenance data will not be wonderful (or
+cheap). Margo pointed out that this is HPTS, so with a provenance handle you
+can make distributed queries on replicated stores where ever you want. Margo's
+group has worked on how much provenance you are likely to want. Jim asked if
+this was a ratio of provenance to data, but Margo said that it depends.
+Someone asked if provenance was like using CVS, but Margo called CVS "poor
+man's provenance".
+
+<HR>
+
+<H1><A NAME="section-8.">Trusting the Cloud</A></H1>
+Chair: Armando Fox (Berkeley)<BR>
+Summarizer: Steve Revilak <A HREF="mailto:srevilak@cs.umb.edu">srevilak@cs.umb.edu</A>
+
+<H2><A NAME="section-8.1.">Clouds and Condos - Pat Helland</A></H2>
+
+<P>
+Pat posed the question: "What can condos teach us about cloud
+computing?".  Quite a few things!  Condos place constraints on living
+environments, but they also provide benefits; for example, most repair
+and maintenance work is taken care of for you.  One can take advantage
+of these benefits, as long as there's a willingness to live within the
+constraints of the condo community.  Similar trends can be seen with
+other types of buildings.  Retail space and office parks are built
+with a notion of how the space will be used, but without knowledge of
+who will be using them.  This allows building developers to support a
+wide variety of tenants; they build to a common set of usage patterns,
+and impose a few constraints on what the building tenants can do.
+
+<P>
+Cloud computing can develop along similar lines.  Cloud computing can
+provide basic services, such as stateless request processing, session
+management, load balancing, provisioning, and scalability.  These
+services may not fit the needs of every conceivable cloud user, but
+they will fit the needs of <i>most</i> cloud users.  Like buildings, we can
+design cloud computing systems according to common patterns of use,
+even if we don't know who the cloud's users will be.
+
+<P>
+Laws and norms governing landlord/tenant relationships have evolved
+over time, and work to the advantage of both parties.  Pat believes
+that we could benefit from a set of common rules that govern cloud
+providers and cloud users.  Such rules would provide fair treatment to
+users, and offer protection to service providers.
+
+<P>
+In summary, our relationship with buildings has changed over time.  As
+we've done with buildings, we need to develop usage models and
+constraints, and rights and responsibilities governing the cloud
+computing environment.
+
+<P>
+Mike Caruso pointed out that customers will need to tell the cloud providers
+what they want/need. Pat agreed, but said that we already know some
+patterns. Someone mentioned that it took many years for landlord/tenant
+law to evolve. Armando Fox said that he already uses Heroku, and it provides
+many of the things he wants.
+
+<H2><A NAME="section-8.2.">Go Fast and Don't Break Things: Ensuring Quality in the Cloud - Scott Hansma (Salesforce.com)</A></H2>
+
+<P>
+Salesforce began life as a CRM application.  Today, they've evolved
+into a full-blown development platform which conducts 575 million
+transactions per day.  All Salesforce customers run in a hosted
+environment, and all customers use the same version of Salesforce's
+software.  This scenario makes quality control extremely important;
+upgrades must work for all users, and upgrades cannot break
+functionality that users have come to depend upon.
+
+<P>
+Salesforce is intensely focused on software quality, and this
+commitment to quality manifests itself in several ways.  Salesforce
+uses a continuous integration (CI) system to test changes as they are
+committed to their source code repository.  This CI system runs
+150,000+ tests in parallel across many machines, and it will do binary
+searches across revision history, to pinpoint the precise checkin that
+caused a test to fail.  Developers do not get off easy -- once the CI
+system has identified an offending checkin, it will open a bug for the
+developer to address the problem.
+
+<P>
+Salesforce allows customers to customize their applications with a
+programming language called APEX.  As a best practice, Salesforce
+requires customers to test their APEX code prior to deployment.  These
+customer-written tests provide an excellent way to regress new
+releases; Salesforce can run customer-written tests against new
+releases, to identify problems prior to deployment.  (Salesforce
+developers are given access to information about failing
+customer-written tests, but they are not given access to the
+underlying customer data).
+
+<P>
+Finally, Salesforce maintains a website (<A HREF="http://trust.salesforce.com">http://trust.salesforce.com</A>)
+where they publish availability metrics and service announcements.
+The company believes that this transparency -- publishing their uptime
+metrics -- helps to promote user confidence in the platform, and keep
+the company focused on quality.
+
+<H2><A NAME="section-8.3.">A Non-Proprietary Social Internet - Monica Lam (Stanford)</A></H2>
+
+<P>
+Cloud computing offers a long list of benefits, but that list does not
+always include privacy.  Take Facebook as an example: Facebook
+provides a great user experience, and a great platform for application
+development.  But Facebook is also a social intranet -- all
+interactions pass through Facebook's servers, and Facebook controls
+access to user data.  Monica believes that social networking should be
+more like email.  Two people can exchange email without having to use
+the same email provider, so, why should two users need to use the same
+social network provider in order to have social interactions?
+
+<P>
+Monica presented an application called Musabi, to demonstrate how open
+social networking could work.  Musabi is a mobile application that
+runs on the Android platform, and permits peer-to-peer social
+networking.  Social networks are created through the users' address
+book, and do not require a central service provider.  This platform
+preserves privacy by eliminating the need for a central provider (all
+of your data lives on your mobile phone), and by encrypting
+communications.  During the talk, Monica set up a social networking
+group for HPTS attendees; several people joined, and began exchanging
+messages with each other.
+
+<P>
+Monica also demonstrated how smart phone applications could be turned
+into collaborative social applications.  Monica showed an application
+called We Paint, which is a collaborative drawing application.
+
+<P>
+Stanford has conducted several usability studies with Musabi.  The
+reactions have varied by age group.  Some adults believe that this is
+the future of social networking.  College students were indifferent;
+they preferred to use Facebook, and found nothing new and attractive
+in Musabi.  Elementary school students were the most receptive; they
+thought Musabi was "awesome".
+
+<P>
+An attendee who worked at Facebook was very upset with Monica for
+suggesting that Facebook might sell user data.  Monica said that
+people should be free to use Facebook if they want to, but she also
+believes that users should have the freedom to use different social
+networking platforms, if they choose to do so.
+
+<HR>
+
+<H1><A NAME="section-9.">Debate Panel: Scale Up vs Scale Out</A></H1>
+Chairs: Margo Seltzer (Harvard) & Natassa Ailamaki (EPFL)
+Summarizer: Pinar Tozun (EPFL) - <A HREF="mailto:pinar.tozun@epfl.ch">pinar.tozun@epfl.ch</A>
+
+<P>
+Panelists: Michael Stonebraker (MIT/VoltDB), Mark Callaghan (Facebook), Michael Cahill (Wired Tiger), and Andy Gross (Basho).
+
+<P>
+The debate panel of this year's HPTS was about whether to focus on scaling up, utilizing a single node in the system with useful work as much as possible, or scaling out, increasing the performance of the system by adding more machines. A node was initially defined as a single processor by the panel but during the panel it was sometimes also referred as a single multiprocessor machine. The panel chairs, Margo Seltzer (Harvard) and Natassa Ailamaki (EPFL), had a slider where 0% indicated total focus on scaling-up and 100% indicated focusing only on scaling-out. The chairs asked the panelist where on this slider they stood while building their systems.
+
+<P>
+Michael Stonebraker chose 15% on the slider. He argued focusing on using all the cores available in your processor as efficiently as possible first but also thinking about how to scale-out as well because unless you have both in your database today, you are not going to be successful. He repeated that one-size does not fit all. Different markets should optimize their systems for their needs. In OLAP (online analytical processing) a column-store beats a row-store, in OLTP you need clever overhead cleanup, in scientific databases array-based designs are needed, etc. He emphasized getting rid of the shared-data structures (buffer pool, Btrees, etc.), locking, and latching bottlenecks in database management systems in order to scale-up to many cores in a node, like they do in their VoltDB related work. Then, he claimed Facebook could have done what they are doing with a 4000 machines cluster with only 40 machines if they had been using VoltDB. He also mentioned his vision for the next 20 years and he thinks there will be around 5 gigantic public cloud vendors and they will handle things so we should trust the cloud and try to adapt our systems to its environment.
+
+<P>
+Mark Callaghan picked 90% on the slider. He leads the MySQL engineering team in Facebook and they run the MySQL at webscale across many machines. He mainly tried to answer why they were using that many machines to handle Facebook's workload, especially after Michael Stonebraker's comments. He argued that they know they can never be working on a single node with Facebook's enormous scale so as long as the software is efficient enough, they will focus on how to scale-out rather than how to scale-up. He believes their market requires focusing on scaling-out. He said they are mostly I/O bound and not CPU bound and he does not think using database designs focused on in-memory databases, like VoltDB, will help them. To have better IOPS and provide lower latency to their customers they need to buy more machines and think about how to scale-out.
+
+<P>
+Andy Gross put his choice on 70% on the slider. His background is on distributed systems and he likes Dynamo-like systems. Naturally, he said he is interested in more than one machine. He argued focusing on both but favoring scaling-out more. He also pointed out different ways of scaling-out and scaling-up; not just thinking on how to use one node or more machines better but also dealing with how to exploit different technologies like SSDs, GPUs, FPGAs, etc. He also mentioned that some people do not have the choice of using specialized solutions and they need to use general purpose products. Public cloud environments, like EC2, are good spaces as a general purpose solution and they also try to address problems related to power and energy consumption for general purpose systems.
+
+<P>
+Michael Cahill chose 0% on the slider. He said he has been working inside the storage engine. He argued that we need to revisit storage engines and the assumptions we make there to ensure serializable isolation among transactions. We have to find non-blocking algorithms inside the storage engine to get the best out of a single processor. He thinks people mostly focus on scaling out across multiple machines nowadays but he wants to make contributions within a single node. He also thinks people should design their software in a way that it will work well on new hardware. He mentioned big companies like Facebook can have the luxury to focus on scaling-out to more machines but smaller companies should focus on the storage-engine first and do their best there to scale-up first.
+
+<P>
+Natassa Ailamaki asked for an example of a technique that is good for scaling-up but not good at all for scaling-out. Michael Cahill answered optimistic concurrency control is definitely a good technique for scaling-up in a single node but since it is hard to coordinate it across nodes, it is not good for scaling-out. She also asked, to Mark Callaghan mainly, whether buying more machines to have more IOPS is a waste of machines and power. Mark Callaghan said if they tried to get rid of the disk and be in-memory then they will need 10 times as many machines they have now. Then Michael Stonebraker said, if they are IO bound, they should use what is optimal for the data-warehouse market and have column-stores to have better compression and reduce their IO load. But Mark Callaghan argued having compression does not reduce the number of IOPS you need linearly and it does not solve the random IO problem. On the other hand, Margo Seltzer opted for focusing on scaling-up first and argued that if you have a system that cannot saturate the memory and CPUs you have then you have a badly built system and this problem should definitely be solved.
+
+<P>
+All the panelists thought open source products were great. Michael Stonebraker and Michael Cahill said they are big fans of open source. Andy Gross said he believes Open Source systems are more reliable. However, Michael Cahill also mentioned that he is not in a team that can maintain an open source product for their own needs and also open source products like MySQL might end up having so many versions around that it will not be clear which one should be used. However, Mike Callaghan argued for MySQL, there is only one main MySQL version and 2-3 other versions to choose from.
+
+<P>
+Someone asked if you have an 160 cores machine then how is scaling-up within that machine different from scaling-out. Michael Cahill said it is the same but there are more failure cases when you have more machines. Andy Gross said such a machine will make you use ideas from distributed systems in a single machine. Another person asked what academic researchers should focus on. Andy Gross argued that the interesting papers are the applied ones and they are mostly about scaling-out. Michael Stonebraker advised that academics should talk to real customers, understand their problems first, and then try to solve them in their research. What should we do if we had non-volatile main-memory was another question from the audience and Andy Gross mentioned SSDs can be thought of that way.
+
+<P>
+Then there was discussion about the NoSQL databases and database knobs that require DBAs. Mark Callaghan argued that NoSQL systems are good because even though they are not focusing on performance, their manageability is easier and that is what matters for some users. Andy Gross also supported NoSQL systems. On the other hand, C. Mohan (IBM) argued that NoSQL systems made users optimizers of databases and Stonebraker argued SQL provides an abstract layer on top of a database for their customers. Stonebraker also supported the need to get rid of as many knobs as possible so as to not to be dependent of the database vendor and the DBAs. However, Armando Fox (UC Berkeley) argued as a customer he would prefer not knowing about the database design details and that people who can tune are good if they know how to do it well.
+
+<HR>
+
+<H1><A NAME="section-10.">New Age OLTP</A></H1>
+Chair: Pat Selinger (IBM)<BR>
+Summarizer: Pinar Tozun (EPFL) - <A HREF="mailto:pinar.tozun@epfl.ch">pinar.tozun@epfl.ch</A>
+
+<H2><A NAME="section-10.1.">All the Rules Have Changed - Michael Stonebraker (VoltDB)</A></H2>
+
+<P>
+Micheal Stonebraker started his talk by categorizing the OLTP market: OldSQL, NoSQL, and NewSQL. OldSQL represents the major RDBMS vendors, which Stonebraker referred to as the elephants. They are disk-based and use ARIES (Algorithms for Recovery and Isolation Exploiting Semantics), dynamic record-level locking, and latching mainly to ensure ACID properties. On the other hand, NoSQL is supported by around 75 companies today and favors leaving SQL and ACID. Finally, NewSQL suggests not leaving SQL and ACID but changing the architecture of the traditional DBMS used by the OldSQL.
+
+<P>
+He pointed to an earlier study which shows that in OldSQL-like databases only 4% of the total CPU cycles go to useful work and the remaining ones are almost evenly shared by latching, locking, logging, and buffer pool management. He argued we cannot benefit much from trying to optimize those architectures. Therefore, a redesign of the DBMS architecture without compromising SQL and ACID is needed to increase the percentage of the useful work and this is what NewSQL databases are trying to achieve. Some examples of the NewSQL movement are VoltDB, NuoDB, Clustrix, and Akiban.
+
+<P>
+He focused on his own work in this field, which is VoltDB, for the talk. VoltDB is a Shared-Nothing database which has hash or range partitioning on the data. It gets rid of the buffer pool by deploying an in-memory database design because most of the OLTP databases today can fit in the aggregate main-memory of few commodity machines. Main memory is statically divided per core and there is a single partition for each core in a machine. Only a single worker thread executes transactions within a partition. Therefore, there are no shared data structures, hence, no need for locking and latching. K-safety measures are used by replication of the data to ensure durability. VoltDB uses stored-procedures for transactions but on-the-fly compilation of ad-hoc queries is possible with minor overhead. Speculative execution can be used for distributed transactions to reduce their overhead although VoltDB does not have such a technique yet. Overall, in terms of performance, the NewSQL database VoltDB achieves 60x improvement compared to an OldSQL vendor, 8x improvement compared to Cassandra which belongs to the NoSQL movement, and has the same performance as Memcached. Stonebraker argues VoltDB is good for both scaling-up and scaling-out.
+
+<P>
+Stonebraker also mentioned some of the recent techniques they introduced to VoltDB and some future work. To deal with cluster-wide failures, they have continuous and asynchronous checkpointing and a log that keeps the stored procedures executed with their inputs so that they can re-execute those after a failure starting from a checkpoint. Moreover, for the databases which are too big to fit in-memory, they are investigating how to do semantic caching for the current working set of the workload. In addition, they work on WAN replication, compression, and on-the-fly reprovisioning in VoltDB.
+
+<P>
+Bruce Lindsay angrily said that the CPU cycles breakdown on the presentation was not true for the big OldSQL vendors. However, Stonebraker mentioned they cannot do that measurement with the products of major vendors since the source code is not available, and Oracle does not permit benchmarking of its products. C. Mohan (IBM) asked whether they support partial rollbacks in VoltDB and Stonebraker said no. Bruce also wondered how VoltDB will do semantic caching if indexes are not subsetted.
+
+<H2><A NAME="section-10.2.">HyPer-sonic: Combined Transaction AND Query Processing - Thomas Neuman (T.U. Munich)</A></H2>
+
+<P>
+Thomas Neuman talked about a main memory database system that combines the execution of OLTP and OLAP workloads, called HyPer, which they built at T.U. Munich. Both OLTP and OLAP workloads have their own characteristics. The former has frequent short-running transactions that observes high data locality in accesses and requires high performance with updates. The latter, however, has a few long running transactions that touch a lot of database records and needs to see a recent consistent state for the database. Most of today's systems are optimized to be good in either one of them. Therefore, usually two separate systems are kept for each workload and data is transferred from OLTP side to OLAP side with an ETL (extract, transform, load) process. This causes both high resource consumption due to maintaining two systems and that the OLAP copy to see an older version of the data.
+
+<P>
+HyPer tries to bring the query processing from OLAP workloads to an efficient OLTP system. It has an in-memory database design where the data is partitioned and only a single thread at-a-time operates on one partition. This way they can run OLTP transactions lock-less and latch-less, very similar to VoltDB design. Whenever an OLAP query needs to be executed, the OLTP process is forked to create a virtual memory snapshot of the database and the query processing is done on that snapshot which provides a fresh version of the database for query processing. Even if there are updates from the OLTP side to the database while a query is running, they are not reflected in the database snapshot seen by the OLAP query. This is handled efficiently because the initially forked OLAP process shares the same physical memory with the OLTP process. Only when there are updates from OLTP process does a copy-on-update take place and only on the updated memory locations to separate the update done by the OLTP (parent) process from the OLAP (child) process.
+
+<P>
+They also use a data-centric query execution model rather than the iterator model. There is a pipeline of operators for a query. They have a producer and consumer interface where the former pushes the data to the current operator and the latter accepts the data and pushes it further up to the next operator. The functions are generated in assembly code at compile time using LLVM which is fast when you want on-demand compilation and creates portable code. Moreover, it achieves better data and instruction locality compared to the iterator model.
+
+<P>
+To evaluate HyPer, they designed a new benchmark called the CH benchmark. The CH-benchmark mainly keeps TPC-C database schema and its transactions with some additional tables from TPC-H schema and converts TPC-H queries to be compatible with this schema. The performance numbers are good though the memory price to pay due to replication might be high if the working set is not that small.
+
+<P>
+Bruce Lindsey wondered how they could run serialized transactions, and Neuman
+responded that it's easy if the transactions are not touching the same data.
+Mohan asked how did they know this staticly at runtime, and Neuman said
+through partitioning. Mike Ubell asked how they could get copying without
+copying all the data, and Neuman said they used the MMU to detect when a write
+would occur, and create a copy only at that time. Russell Sears (Yahoo!) commented on the
+use of LLVM to create queries, saying that code generators blow away the
+instruction cache.
+
+<H2><A NAME="section-10.3.">Scaling Out With Meld - Phil Bernstein (Microsoft)</A></H2>
+
+<P>
+Phil Bernstein presented a database design where a shared binary-tree log is the database. The log supports multiversion concurrency control and the most recently used parts of it are cached in each server's memory. In this design there is no need for cross talk between the servers and therefore the design is very suitable for scaling-out without dealing with the burdens of partitioning, which is the more common technique for scaling-out today.
+
+<P>
+Each server has their local (partial) copy of the log in-memory and it has the last committed database state. Transactions executing on these servers append their intention log records to these local copies of the log. At the same time, the meld operation takes place at each server which processes the log in log order to see whether there are any transactions that conflict with each other. Depending on this process, the meld operation decides which transactions to commit or abort. If a transaction is to be committed, then the meld merges its updates (intention log records) to the database state. The meld operation basically performs optimistic concurrency control for the transactions.
+
+<P>
+Even though such a design is good for scaling out, the simple way of doing it has some bottlenecks. Optimistic concurrency control can hinder performance severely if the conflict rates are high. However, this is dependent of the application. Reading from and writing to the log might be bottlenecks but these have the chance to improve in the future with technology trends. On the other hand, the meld operation being a single-threaded operation that reads many entries in the log might become a huge bottleneck because the speed of a single processor does not improve anymore. So the meld operation should be optimized first.
+
+<P>
+The main idea was for the meld process to have a lot fewer log records to check for conflicts for a transaction by storing more information about the transaction in each transaction's intention. This is mainly done by keeping version numbers for each node of the binary tree.
+
+<P>
+Mohan asked if they broadcast the log, and Bernstein replied that everybody
+has to read it. Margo Seltzer noticed a potential conflict on a slide, and
+Bernstein responded that she had found a bug in the slide.  One of the audience asked how they handle scan operations and Phil Bernstein said they currently do not support scans. Stonebraker asked how much of the time goes to useful work and how much of it goes to the overheads of the system. Bernstein did not provide a very clear answer to this question.
+
+<HR>
+
+<H1><A NAME="section-11.">Mobility Trends & Implications</A></H1>
+Chair: Sam Madden (MIT)<BR>
+Summarized by Yingyi Bu - <A HREF="mailto:yingyib@ics.uci.edu">yingyib@ics.uci.edu</A>
+
+<H2><A NAME="section-11.1.">Data Management Challenges in Location Based Services</A></H2>
+Srinivas Narayanan (Facebook)
+
+<P>
+Srinivas Narayanan talked about the status and vision of location-based services in Facebook. He mentioned that there are 800 million active users on Facebook, and 350 million of them are mobile users. Mobile users usually add location check-ins, upload photos, and create events. Srinivas emphasized that location is not only latitude and longitude, but also people, activities and places. In the future, social events will be built on top of locations, and interesting applications such as social events/friends discovery on top of places will become very popular.
+
+<P>
+Srinivas then listed several challenges in building such location-based services. First, good location search needs to address queries with either strong location bias or weak location bias, and considers rankings with factors such as popularity and social signals. Second, social queries need to scale-up and scale-out; currently Facebook uses a MySQL backend but does not use complex queries. In the future, Facebook wants to support queries more complex than NoSQL queries. Third, everybody can have privacy policies for every data point, thus, to apply rules to each data point will be expensive. Fourth, social recommendations add a new dimension (location) to personal data, which advanced machine learning and data mining algorithms should leverage. Fifth,  data quality will be pretty challenging since there will be no single truth (the true real-world location) for many data sources (which get tagged by user annotations), and crowd-sourcing or machine learning might be solutions.
+
+<P>
+Harumi Kuno (HP Labs) asked if Srinivas could say more about the index used
+for queries, and Srinivas suggested that they take the questions offline, but said
+you can use lots of predicates. Adam Marcus pointed out that the information
+is both sensitive, and has many compelling use cases, and wondered about
+privacy. Srinivas says Facebook provides you with complete control over who
+you give your data to. Mike Caruso wondered if they could use the location
+data to reveal where someone lives. Srinivas said he didn't have a specific
+answer for Mike, and pointed out that Facebook is not just an urban product.
+
+<H2><A NAME="section-11.2.">Urban Data Analysis - Projects, Methods and Tools used to Describe 21st Century Cities - Oliver Senn (MIT SENSEable City Group)</A></H2>
+
+<P>
+Oliver Senn began by introducing the area of urban data analysis with several interesting projects built by their group. The <i>Copenhagen Wheel</i> includes sensor devices on bikes, and those sensors continuously collect data from the bikes. With gathered sensor information from all bikes, the back-end system can do real-time data analysis considering both traffic and social information. <i>Co2go</i> uses accelerometer traces in smartphones to estimate CO2 emissions, and enables aggregated CO2 emission analysis among different users. <i>LIVE Singapore</i> is an enabling platform for applications which collect, combine, distribute, analyze, and visualize either historical or real-time urban data. Interesting applications such as <i>realtime call locations</i>, <i>formula one city</i> and <i>raining taxis</i> have been built on top of <i>LIVE Singapore</i> (<A HREF="http://senseable.mit.edu/livesingapore/">http://senseable.mit.edu/livesingapore/</A>).
+
+<P>
+After describing those interesting urban data analysis applications, Oliver mentioned software tools they used in the project, including Matlab, R, OpenMP, MPI, Boost Graph Library, GNU Scientific Library, C++, Java, Python, awk, sed, Oracle, MySQL, and PostgreSQL. One challenge is that the project group has only few computer science people and every one is sticking to some tools, thus, to integrate different components requires a lot of work. The other challenge is to understand the dataset in terms of what system produced the data, what part of data should be included/excluded, and how inconsistency should be resolved.
+
+<P>
+Someone asked what are the future problems/challenges? Oliver said one challenge they are facing is that they don't have access to huge clusters, so for certain tasks (like graph analysis) they are currently restricted. Also, certain data sets belong to the owners (is under NDA), and cannot be exported to offshore (such as the Live Singapore data).
+
+<H2><A NAME="section-11.3.">Mobile Data Management in the CarTel System - Sam Madden (MIT CSAIL)</A></H2>
+
+<P>
+Sam Madden talked about problems in mobile data management and their solutions in the CarTel system. Applications of mobile data management include smart tolling insurance, urban activity monitoring, and personal medical monitoring. The volume of road sensing data is huge and personal trajectory data sometimes are sensitive. Thus Madden's group developed software to efficiently store and access such data while providing users control over privacy.
+
+<P>
+One sub-project of CarTel is CTrack, which transforms sensed raw data to meaningful trajectories. CTrack handles cellphone signal location points with incorrect data, using probability-based estimation techniques, and pre-processes this data to visualizable road traces. The other sub-project is TrajStore, which is a storage system for indexing and querying trajectories. TrajStore recursively divides a region into grid cells, and dynamically co-locates/compresses spatially and temporally adjacent segments on disk in order minimize disk I/Os.
+
+<P>
+Sam mentioned that there are more and more location-aware mobile devices, from a database researcher&Acirc;�s view: cleaning, matching, filtering, visualizing, and animating mobile data at large-scale are still challenging.
+
+<P>
+Mehul Shah wondered why they didn't put all the data into a database. Sam
+replied that some of the group are machine intelligence experts that are
+trained in tools that don't lool like SQL. If you push the data into SQL, they
+won't use it. Adam Marcus asked to what extent this is an interface problem,
+and Sam said that some of the algorithmic issues haven't been figured out
+yet.
+
+<H2><A NAME="section-11.4.">Scalability Under the Hood at Foursquare - Jorge Ortiz (Foursquare)</A></H2>
+
+<P>
+Jorge Ortiz introduced Foursquare to the audience. Foursquare is a location-based social networking service provider, which has general social networking utilities, games, city guides that help discover the world around people, and rewards for customers. Today, Foursquare has 13,000,000+ users and 4,000,000+ check-ins/day.
+
+<P>
+Jorge shared the evolving history of scalability solutions at Foursquare. At the launch in March 2009, Foursquare used a single node PostgreSQL database, which served 12,000 check-ins/day and 17,000 users. However, at the beginning of 2010, the workload became 138,000 check-ins/day and 270,000 users; the system broke because of serving all reads/writes on a single database. From then on, Foursquare started to use MongoDB to serve reads, but still used one PostgreSQL node to serve check-in writes. In 2011, there were 2,800,000 check-ins/day plus 9,400,000 users, and Foursquare began to use MongoDB for both reads/writes. By October 2011, there were 4,000,000+ check-ins/day 13,000,000+ users. Jorge mentioned the drawbacks of PostgreSQL including connection limits, VACUUM (free space recovery), and lack of monitoring tools, as well the advantages of MongoDB including auto-balancing, shard routing and synchronization.
+
+<P>
+Jorge also explained that MongoDB does not shard geography queries, and therefore they use Google's s2-geometry-library which turns polygon into sets of covering tiles and turns the geography index problem into a search problem.
+
+
+</BODY>
+</HTML>
