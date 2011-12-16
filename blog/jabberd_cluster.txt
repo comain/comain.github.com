@@ -1,0 +1,73 @@
+Hello, 
+We are building a XMPP based chat service using Jabberd2. Jabberd2 is a great
+project which helped us a lot for the xmpp stuff. However, for production use,
+we also encountered various scalability/reliability problems which I believe
+may be one reason for people choosing OpenFire or Ejabberd as alternatives.
+
+Here is a brief summary of what we have done in hoping that this will help
+followers have a better knowledge on building production-quality clustered jabberd
+environment. Your suggestions is highly appreciated also.
+
+1. The single-thread c2s/sm with blocking db access.
+Jabberd2 is designed to be single threaded. However it was using synchronous
+data storage APIs to access database. We don't think multi-threading is a
+good choice as from our experience, threading is costly and can still causing
+requests on the same thread block. Our solution is to rewrite sm/c2s to add
+asynchrous API support. 
+We are using Mysql as our db backend but found no synchronous APIs available for
+mysql client (There is one in drizzle project but we had no experienced in it).
+Therefore, we had to build a seperate DB middle-wre module to provide asynchrous 
+DB access for sm/c2s (details in section 6).
+
+2. Horizontal scale router and sm
+We worked hard to ensure the whole system is horizontally scalable, so that we
+can add any sm/router/c2s boxes in our system without pain. The work includes:
+2.1 multi-sm for one host 
+Patch router, so that when multiple sm is available for the same domain, select 
+one sm by policy.
+2.2 sx connection pool struct in c2s/sm to load-balance requests.
+Both c2s and sm hold a pool of connections to all routers and select any router
+by pilicy.
+
+To recap, when user on c2s1 and sm1 what to chat with user on c2s2 and sm2, the
+message flow maybe:
+c2s1->router1->sm1->router1->sm2->router1->c2s2
+
+3. Remove SPOF of sm.
+We what to ensure there is no SPOF in our system. With c2s there is no hope as
+the client only connects to one c2s process and if it crashed the user has to be
+re-connected. However we don't what any router/sm crash causing availability
+problems for user. We ensure router is not a SPOF to let all c2s and sm
+connecting to all routers and any router left can routing messages.
+The difficult part is sm, it has a lot of session-related stuff in memory. If a
+user is handled by sm1 and sm1 crashed, no sm can transparently take over this
+user. The final solution is to make sm stateless and all session related stuff
+is stored in another in-memory db cluser built upon redis. So that any sm can
+handle any user at any time! With this change, we also have a bonus on deliving
+message example in section 2, now the message flow is:
+c2s1->router1->sm1->router1->c2s2
+
+4. Multiprocess c2s
+Since we what to expose one single ip+port for end user, we have to devise a way
+for different c2s processes sharing the same port (The ip part is handled by a
+lvs gateway). So we changed c2s to be multi-processed.
+
+5. Binary communication between c2s,router,sm
+We conclude XML parsing is expensive in our system and found the messages
+were already parsed by c2s/router, so we send the in-memory serilization over a
+binary protocol directly with out serilizing it to XML format, so that the
+receiver can load it into memory directly without extra parsing.
+
+6. Distributed DB middleware handling sharding, read-write protection and caching
+transparently.
+As stated in seciont 1, we first introduced a db middle-ware to provide
+asynchrous mysql API for sm. This moudle is later enhanced as a distributed DB
+middleware. It handles sharding and read-write seperation stuff. It also use a
+distributed memcached cluster to provide transparent caching capability.
+
+7. Failover
+The final part is detection failed processes instantly and automatic failover.
+We add a timer using mio to provide request-response timeout check, connection
+timeout check etc. Add a bi-directional hearbeat check between c2s-router and
+sm-router to check availability. Add a request-response check to check
+availability of backend db middleware and in-db redis middleware.
