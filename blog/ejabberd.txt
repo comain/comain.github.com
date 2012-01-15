@@ -1,0 +1,45 @@
+1. start up sequece
+ejabberd.start() -> loading ejabberd app
+ejabberd_app.start()
+
+2. entry point
+ejabberd_listener ->
+(fork per connection) ejabberd_socket -> ejabberd_receiver -> (drive)
+ejabberd_c2s fsm
+                                      
+
+3. ejabberd listeners
+read listener section from config, start corresponding module supervisor
+(ejabberd_tmp_sup) and listener supervisor.
+ejabberd_sup->ejabberd_tmp_sup->ejabberd_c2s
+ejabberd_sup->ejabberd_listener_sup->ejabberd_listener.start()->ejabberd_listerner.init()->listener:accept()
+
+3. ejabberd_cluster/nodegroup
+ejabberd_sup->ejabberd_cluster maintains node set and distrution user accross
+these nodes. When new node comes, call ejabberd_c2s:migrate, which calls
+p1_fsm:handle_message (migrate,xxx) and finally call
+ejabberd_socket:change_controller
+
+what about a node went down??
+
+ejabberd_sup->ejabberd_nodegroup
+new archtecture
+http://www.process-one.net/en/blogs/article/angie_introducing_flexarch
+nodes can be front-end or back-end or general; work-in-progress, so that
+a backend server fails will not interfe front-end.
+
+4. ejabberd hooks
+
+5. ejabberd modules
+
+6. ejabberd_route ejabberd_route_multicast ejabberd_global_route ejabberd_sm:route
+message_flow:
+A->B
+cs2A->smA(hash by jid, ejabberd_sm:do_route)->smB (check it's session table,
+        ejabberd_sm:do_route1)->c2sB
+
+route only route mssage by domain name (or virtual host name), it doesn't care
+the jid.
+global_route: domain_prefix -> route_pids
+route: domain -> pid, local_hint
+route_multicast: domain -> pid
