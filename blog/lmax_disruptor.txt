@@ -1,0 +1,12 @@
+disruptor-20120625
+
+          ClaimStrategy
+producer----------------> nextSequence (busyspin/yield/nanoPark/lock)
+-->Publish
+
+claim&publish: two phase commit
+
+                                WaitStragegy
+consumer executor-> processor->----------------> ProcessingBarrier.wait -->
+onEvent
+
